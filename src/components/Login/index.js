@@ -1,4 +1,6 @@
 import {Component} from 'react'
+import {Redirect} from 'react-router-dom'
+
 import Cookies from 'js-cookie'
 import './index.css'
 
@@ -10,8 +12,8 @@ export default class Login extends Component {
   onChangePassword = event => this.setState({password: event.target.value})
 
   onLoginSuccess = data => {
-    const {match} = this.props
-    const {history} = match
+    const {history} = this.props
+
     console.log(data)
     const jwtToken = data.jwt_token
     Cookies.set('jwt_token', jwtToken)
@@ -23,7 +25,7 @@ export default class Login extends Component {
     const {userName, password} = this.state
 
     const user = {
-      userName,
+      username: userName,
       password,
     }
 
@@ -39,7 +41,7 @@ export default class Login extends Component {
     if (response.ok) {
       this.onLoginSuccess(data)
     } else {
-      this.setState({errorMsg: response.error_msg})
+      this.setState({errorMsg: data.error_msg})
     }
   }
 
@@ -96,6 +98,10 @@ export default class Login extends Component {
   }
 
   render() {
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
     return (
       <div className="login-bg">
         <form className="login-form" onSubmit={this.SubmitForm}>
