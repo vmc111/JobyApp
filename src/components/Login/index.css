@@ -78,3 +78,8 @@
     margin-top: 20px;
   }
 }
+.error-text {
+  margin-top: 0px;
+  align-self: flex-start;
+  color: #ff0b37;
+}

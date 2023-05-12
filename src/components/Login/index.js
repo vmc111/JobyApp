@@ -1,17 +1,22 @@
 import {Component} from 'react'
+import Cookies from 'js-cookie'
 import './index.css'
 
-const apiStrings = {
-  initial: 'INITIAL',
-  success: 'SUCCESS',
-  failure: 'FAILURE',
-}
 export default class Login extends Component {
-  state = {userName: '', password: '', responseStatus: apiStrings.initial}
+  state = {userName: '', password: '', errorMsg: ''}
 
   onChangeUsername = event => this.setState({userName: event.target.value})
 
   onChangePassword = event => this.setState({password: event.target.value})
+
+  onLoginSuccess = data => {
+    const {match} = this.props
+    const {history} = match
+    console.log(data)
+    const jwtToken = data.jwt_token
+    Cookies.set('jwt_token', jwtToken)
+    history.replace('/')
+  }
 
   SubmitForm = async event => {
     event.preventDefault()
@@ -31,7 +36,24 @@ export default class Login extends Component {
 
     const response = await fetch(apiUrl, options)
     const data = await response.json()
-    console.log(data)
+    if (response.ok) {
+      this.onLoginSuccess(data)
+    } else {
+      this.setState({errorMsg: response.error_msg})
+    }
+  }
+
+  renderErrorText = () => {
+    const {errorMsg} = this.state
+    if (errorMsg === '') {
+      return null
+    }
+
+    return (
+      <>
+        <p className="error-text">*{errorMsg}</p>
+      </>
+    )
   }
 
   renderPasswordField = () => {
@@ -74,8 +96,6 @@ export default class Login extends Component {
   }
 
   render() {
-    const {responseStatus} = this.state
-
     return (
       <div className="login-bg">
         <form className="login-form" onSubmit={this.SubmitForm}>
@@ -89,6 +109,7 @@ export default class Login extends Component {
           <button type="submit" className="login-btn">
             Login
           </button>
+          {this.renderErrorText()}
         </form>
       </div>
     )
