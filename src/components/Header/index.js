@@ -8,9 +8,11 @@ import {FiLogOut} from 'react-icons/fi'
 
 import './index.css'
 
-const Header = () => {
+const Header = props => {
   const logout = () => {
+    const {history} = props
     Cookies.remove('jwt_token')
+    history.replace('/login')
   }
   return (
     <nav className="nav-bar">
