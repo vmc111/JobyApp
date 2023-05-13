@@ -41,12 +41,10 @@ const salaryRangesList = [
   },
 ]
 
-const employmentTypeArray = []
-
 export default class Filters extends Component {
   state = {
-    selectedType: employmentTypeArray,
-    selectedSalary: salaryRangesList[0].salaryRangeId,
+    selectedType: '',
+    selectedSalary: '',
   }
 
   employmentType = () => (

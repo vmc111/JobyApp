@@ -1,0 +1,158 @@
+.main-bg {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.jobs-bg {
+  width: 100%;
+  max-width: 700px;
+  background-color: #272727;
+  display: flex;
+  flex-direction: column;
+  padding: 1vw;
+  border-radius: 10px;
+  margin: 2vh 0px;
+  color: #ffffff;
+}
+.logo-title {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+}
+.logo {
+  height: 80px;
+  width: 80px;
+  margin-right: 2vw;
+}
+.title-rating {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.rating-div {
+  display: flex;
+  align-items: center;
+  margin: 0px;
+  padding: 0px;
+}
+.rating {
+  color: #ffffff;
+  font-size: 28px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+.details {
+  margin-top: 0px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #2c364c;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+.location-type-div {
+  display: flex;
+  align-items: center;
+}
+.location-div {
+  display: flex;
+  align-items: center;
+}
+.location {
+  margin-left: 5px;
+  margin-right: 30px;
+}
+.type-div {
+  display: flex;
+  align-items: center;
+}
+.type {
+  margin-left: 5px;
+}
+.package {
+  font-size: 22px;
+}
+.description-div {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  width: 95%;
+}
+.description-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+@media all and (max-width: 767px) {
+  .main-bg {
+    width: 95%;
+  }
+  .jobs-bg {
+    padding: 10px;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .logo-title {
+    width: 100%;
+    align-items: flex-start;
+  }
+  .logo {
+    margin: 0px;
+    padding: 0px;
+    height: 60px;
+    width: 60px;
+    margin-right: 2vw;
+  }
+  .title {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0px;
+  }
+  .title-rating {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .rating-div {
+    margin: 0px;
+  }
+  .rating {
+    font-size: 18px;
+  }
+  .details {
+    flex-wrap: wrap;
+  }
+  .location {
+    margin-right: 15px;
+    margin-left: 0px;
+  }
+}
+
+.failure-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #ffffff;
+  text-align: center;
+  align-items: center;
+}
+.img {
+  margin-top: 0px;
+  align-self: flex-start;
+  height: 400px;
+  max-width: 400px;
+}
+.retry-btn-2 {
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #6366f1;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+}

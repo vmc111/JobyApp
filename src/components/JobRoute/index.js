@@ -5,6 +5,7 @@ import {FaSearch} from 'react-icons/fa'
 
 import Header from '../Header'
 import Filters from '../Filters'
+import JobCard from '../Job'
 import './index.css'
 
 const apiStrings = {
@@ -15,7 +16,11 @@ const apiStrings = {
 }
 
 export default class JobRoute extends Component {
-  state = {profileApi: apiStrings.initial, profile: []}
+  state = {
+    profileApi: apiStrings.initial,
+    profile: [],
+    jobUrl: 'https://apis.ccbp.in/jobs',
+  }
 
   componentDidMount() {
     this.getProfile()
@@ -34,14 +39,11 @@ export default class JobRoute extends Component {
     const response = await fetch(url, options)
     const data = await response.json()
     if (response.ok) {
-      console.log(data)
       const formattedData = {
         name: data.profile_details.name,
         profileImageUrl: data.profile_details.profile_image_url,
         shortBio: data.profile_details.short_bio,
       }
-      console.log(formattedData)
-
       this.setState({profile: formattedData, profileApi: apiStrings.success})
     } else {
       this.setState({profileApi: apiStrings.failure})
@@ -80,6 +82,7 @@ export default class JobRoute extends Component {
   }
 
   render() {
+    const {jobUrl} = this.state
     const searchItem = (
       <div className="search-container">
         <input type="search" className="search" placeholder="Search" />
@@ -93,9 +96,13 @@ export default class JobRoute extends Component {
         <Header />
         <div className="jobs-route-bg">
           <div className="profile-filters">
-            <div className="desktop-view">{searchItem}</div>
+            <div className="hide-on-desktop">{searchItem}</div>
             <div className="profile-border">{this.renderProfile()}</div>
             <Filters />
+          </div>
+          <div className="jobs-container">
+            <div className="hide-on-mobile">{searchItem}</div>
+            <JobCard jobUrl={jobUrl} />
           </div>
         </div>
       </div>
