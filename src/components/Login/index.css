@@ -41,7 +41,8 @@
   font-size: 14px;
   height: 40px;
   border: 1px solid #d7dfe9;
-  background-color: transparent;
+  outline: none;
+  background-color: #272727;
   color: #64748b;
   border-radius: 2px;
   margin-top: 5px;
@@ -71,7 +72,7 @@
   border: none;
   outline: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 @media all and (max-width: 767px) {
   .login-btn {

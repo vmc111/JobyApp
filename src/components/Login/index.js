@@ -13,8 +13,6 @@ export default class Login extends Component {
 
   onLoginSuccess = data => {
     const {history} = this.props
-
-    console.log(data)
     const jwtToken = data.jwt_token
     Cookies.set('jwt_token', jwtToken)
     history.replace('/')
@@ -41,7 +39,7 @@ export default class Login extends Component {
     if (response.ok) {
       this.onLoginSuccess(data)
     } else {
-      this.setState({errorMsg: data.error_msg})
+      this.setState({errorMsg: data.error_msg, userName: '', password: ''})
     }
   }
 

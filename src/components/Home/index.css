@@ -20,6 +20,7 @@
   color: #f1f5f9;
 }
 .btn {
+  cursor: pointer;
   font-size: 18px;
   color: #ffffff;
   font-weight: bold;

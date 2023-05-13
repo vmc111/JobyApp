@@ -16,11 +16,13 @@ const Header = props => {
   }
   return (
     <nav className="nav-bar">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/logo-img.png "
-        alt="website logo"
-        className="nav-logo"
-      />
+      <Link to="/" className="link">
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/logo-img.png "
+          alt="website logo"
+          className="nav-logo"
+        />
+      </Link>
       <div className="desktop-view">
         <div className="nav-elements">
           <Link to="/" className="link">
@@ -40,7 +42,7 @@ const Header = props => {
         <Link to="/" className="m-view-icons">
           <AiFillHome size="30" color="#ffffff" />
         </Link>
-        <Link to="/about" className="m-view-icons">
+        <Link to="/jobs" className="m-view-icons">
           <BsBriefcaseFill size="30" color="#ffffff" />
         </Link>
         <button className="icon-btn" type="button" onClick={logout}>
