@@ -42,16 +42,27 @@ const salaryRangesList = [
 ]
 
 export default class Filters extends Component {
-  state = {
-    selectedType: '',
-    selectedSalary: '',
+  changeSalary = event => {
+    const {setSalary} = this.props
+    setSalary(event.target.value)
+  }
+
+  changeType = event => {
+    const {setEmployement} = this.props
+    setEmployement(event.target.value)
   }
 
   employmentType = () => (
     <ul className="list">
       {employmentTypesList.map(item => (
         <li key={item.label} className="list-item">
-          <input type="checkbox" className="radio-input" id={item.label} />
+          <input
+            type="checkbox"
+            className="radio-input"
+            onChange={this.changeType}
+            value={item.employmentTypeId}
+            id={item.label}
+          />
           <label className="label" htmlFor={item.label}>
             {item.label}
           </label>
@@ -65,10 +76,11 @@ export default class Filters extends Component {
       {salaryRangesList.map(item => (
         <li className="list-item" key={item.salaryRangeId}>
           <input
+            onChange={this.changeSalary}
             name="options"
             type="radio"
             className="radio-input"
-            id={item.salaryRangeId}
+            value={item.salaryRangeId}
           />
           <label className="label" htmlFor={item.salaryRangeId}>
             {item.label}

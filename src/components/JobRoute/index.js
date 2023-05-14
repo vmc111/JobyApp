@@ -17,13 +17,18 @@ const apiStrings = {
 
 export default class JobRoute extends Component {
   state = {
+    jobApiStatus: apiStrings.initial,
+    jobDetailsArray: [],
     profileApi: apiStrings.initial,
     profile: [],
-    jobUrl: 'https://apis.ccbp.in/jobs',
+    employementType: [],
+    salaryRanges: '',
+    name: '',
   }
 
   componentDidMount() {
     this.getProfile()
+    this.callJobsApi()
   }
 
   getProfile = async () => {
@@ -68,7 +73,7 @@ export default class JobRoute extends Component {
     if (profileApi === apiStrings.failure) {
       return (
         <div className="retry-btn-container">
-          <button type="button" className="retry-btn">
+          <button onClick={this.getProfile} type="button" className="retry-btn">
             Retry
           </button>
         </div>
@@ -81,16 +86,101 @@ export default class JobRoute extends Component {
     )
   }
 
+  setSalary = salaryId =>
+    this.setState({salaryRanges: salaryId}, this.callJobsApi)
+
+  setEmployement = value => {
+    const {employementType} = this.state
+    if (employementType.includes(value)) {
+      console.log(value)
+      this.setState(
+        {
+          employementType: employementType.filter(
+            eachValue => eachValue !== value,
+          ),
+        },
+        this.callJobsApi,
+      )
+    } else {
+      this.setState(
+        preState => ({
+          employementType: [...preState.employementType, value],
+        }),
+        this.callJobsApi,
+      )
+    }
+  }
+
+  changeName = event =>
+    this.setState({name: event.target.value}, this.callJobsApi)
+
+  onSuccessJobApi = data => {
+    const formattedData = data.jobs.map(data1 => ({
+      companyLogoUrl: data1.company_logo_url,
+      employmentType: data1.employment_type,
+      id: data1.id,
+      jobDescription: data1.job_description,
+      location: data1.location,
+      packagePerAnnum: data1.package_per_annum,
+      rating: data1.rating,
+      title: data1.title,
+    }))
+    console.log(formattedData)
+    this.setState({
+      jobApiStatus: apiStrings.success,
+      jobDetailsArray: formattedData,
+    })
+  }
+
+  callJobsApi = async () => {
+    this.setState({jobApiStatus: apiStrings.inProgress})
+
+    const jwtToken = Cookies.get('jwt_token')
+
+    const {salaryRanges, employementType, name} = this.state
+    const type = employementType.join(',')
+
+    const jobUrl = `https://apis.ccbp.in/jobs?employment_type=${type}&minimum_package=${salaryRanges}&search=${name}`
+
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+    const response = await fetch(jobUrl, options)
+    const data = await response.json()
+    if (response.ok) {
+      this.onSuccessJobApi(data)
+    } else {
+      this.setState({jobApiStatus: apiStrings.failure})
+    }
+  }
+
   render() {
-    const {jobUrl} = this.state
+    const {
+      employementType,
+      salaryRanges,
+      jobDetailsArray,
+      jobApiStatus,
+      name,
+    } = this.state
+
     const searchItem = (
       <div className="search-container">
-        <input type="search" className="search" placeholder="Search" />
+        <input
+          onChange={this.changeName}
+          value={name}
+          type="search"
+          className="search"
+          placeholder="Search"
+        />
         <div className="icon">
           <FaSearch size="20" color="#ffffff" />
         </div>
       </div>
     )
+
     return (
       <div className="bg-main">
         <Header />
@@ -98,11 +188,18 @@ export default class JobRoute extends Component {
           <div className="profile-filters">
             <div className="hide-on-desktop">{searchItem}</div>
             <div className="profile-border">{this.renderProfile()}</div>
-            <Filters />
+            <Filters
+              setEmployement={this.setEmployement}
+              setSalary={this.setSalary}
+            />
           </div>
           <div className="jobs-container">
             <div className="hide-on-mobile">{searchItem}</div>
-            <JobCard jobUrl={jobUrl} />
+            <JobCard
+              jobDetailsArray={jobDetailsArray}
+              apiStatus={jobApiStatus}
+              apiFunc={this.callJobsApi}
+            />
           </div>
         </div>
       </div>
