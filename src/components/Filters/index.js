@@ -95,11 +95,11 @@ export default class Filters extends Component {
     return (
       <div className="filters">
         <div className="list-container border-container">
-          <p className="title">Type of Employment</p>
+          <h3 className="title">Type of Employment</h3>
           {this.employmentType()}
         </div>
         <div className="list-container">
-          <p className="title">Salary Range</p>
+          <h3 className="title">Salary Range</h3>
           {this.salaryRanges()}
         </div>
       </div>

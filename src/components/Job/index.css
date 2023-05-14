@@ -15,6 +15,10 @@
   border-radius: 10px;
   margin: 2vh 0px;
   color: #ffffff;
+  text-decoration: none;
+}
+.td {
+  text-decoration: none;
 }
 .logo-title {
   margin: 0px;

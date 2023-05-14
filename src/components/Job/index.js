@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 import Loader from 'react-loader-spinner'
 import {AiFillStar} from 'react-icons/ai'
 import {MdLocationOn} from 'react-icons/md'
@@ -38,35 +40,37 @@ const JobCard = props => {
 
   if (apiStatus === apiStrings.success) {
     return jobDetailsArray.map(job => (
-      <div key={job.id} className="jobs-bg">
-        <div className="logo-title">
-          <img src={job.companyLogoUrl} alt={job.id} className="logo" />
-          <div className="title-rating">
-            <p className="title">{job.title}</p>
-            <div className="rating-div">
-              <AiFillStar size="30" color="#fbbf24" />
-              <p className="rating">{job.rating}</p>
+      <Link to={`/jobs/${job.id}`} className="td">
+        <li key={job.id} className="jobs-bg">
+          <div className="logo-title">
+            <img src={job.companyLogoUrl} alt="company logo" className="logo" />
+            <div className="title-rating">
+              <h6 className="title">{job.title}</h6>
+              <div className="rating-div">
+                <AiFillStar size="30" color="#fbbf24" />
+                <p className="rating">{job.rating}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="details">
-          <div className="location-type-div">
-            <div className="location-div">
-              <MdLocationOn size="30" color="#ffffff" />
-              <p className="location">{job.location}</p>
+          <div className="details">
+            <div className="location-type-div">
+              <div className="location-div">
+                <MdLocationOn size="30" color="#ffffff" />
+                <p className="location">{job.location}</p>
+              </div>
+              <div className="type-div">
+                <BsBriefcaseFill size="30" color="#ffffff" />
+                <p className="type">{job.employmentType}</p>
+              </div>
             </div>
-            <div className="type-div">
-              <BsBriefcaseFill size="30" color="#ffffff" />
-              <p className="type">{job.employmentType}</p>
-            </div>
+            <p className="package">{job.packagePerAnnum}</p>
           </div>
-          <p className="package">{job.packagePerAnnum}</p>
-        </div>
-        <div className="description-div">
-          <p className="description-title">Description</p>
-          <p className="text">{job.jobDescription}</p>
-        </div>
-      </div>
+          <div className="description-div">
+            <h6 className="description-title">Description</h6>
+            <p className="text">{job.jobDescription}</p>
+          </div>
+        </li>
+      </Link>
     ))
   }
 

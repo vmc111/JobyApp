@@ -158,13 +158,7 @@ export default class JobRoute extends Component {
   }
 
   render() {
-    const {
-      employementType,
-      salaryRanges,
-      jobDetailsArray,
-      jobApiStatus,
-      name,
-    } = this.state
+    const {jobDetailsArray, jobApiStatus, name} = this.state
 
     const searchItem = (
       <div className="search-container">
