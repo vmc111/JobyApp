@@ -17,6 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  list-style: none;
 }
 @media all and (max-width: 767px) {
   .desktop-view {

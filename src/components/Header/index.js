@@ -23,21 +23,21 @@ const Header = props => {
           className="nav-logo"
         />
       </Link>
-      <div className="desktop-view">
+      <ul className="desktop-view">
         <div className="nav-elements">
           <Link to="/" className="link">
-            <p className="nav-element">Home</p>
+            <li className="nav-element">Home</li>
           </Link>
           <Link to="/jobs" className="link">
-            <p className="nav-element">Jobs</p>
+            <li className="nav-element">Jobs</li>
           </Link>
         </div>
-        <div className="btn-container">
+        <li className="btn-container">
           <button type="button" className="logout-btn" onClick={logout}>
             Logout
           </button>
-        </div>
-      </div>
+        </li>
+      </ul>
       <div className="mobile-view">
         <Link to="/" className="m-view-icons">
           <AiFillHome size="30" color="#ffffff" />

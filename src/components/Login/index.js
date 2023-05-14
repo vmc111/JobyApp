@@ -14,7 +14,7 @@ export default class Login extends Component {
   onLoginSuccess = data => {
     const {history} = this.props
     const jwtToken = data.jwt_token
-    Cookies.set('jwt_token', jwtToken)
+    Cookies.set('jwt_token', jwtToken, {expires: 30})
     history.replace('/')
   }
 

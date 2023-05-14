@@ -76,6 +76,7 @@ export default class Filters extends Component {
       {salaryRangesList.map(item => (
         <li className="list-item" key={item.salaryRangeId}>
           <input
+            id={item.salaryRangeId}
             onChange={this.changeSalary}
             name="options"
             type="radio"
